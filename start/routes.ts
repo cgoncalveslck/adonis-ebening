@@ -24,6 +24,10 @@ Route.get('/', async ({ view }) => {
   return view.render('welcome')
 })
 
+Route.get('/login', async ({ view }) => {
+  return view.render('login')
+})
+
 Route.get('login/discord', 'AuthController.redirectToDiscord')
 
 Route.get('discord/callback', 'AuthController.handleDiscordCallback')
