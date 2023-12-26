@@ -23,3 +23,7 @@ import Route from '@ioc:Adonis/Core/Route'
 Route.get('/', async ({ view }) => {
   return view.render('welcome')
 })
+
+Route.get('login/discord', 'AuthController.redirectToDiscord')
+
+Route.get('discord/callback', 'AuthController.handleDiscordCallback')
