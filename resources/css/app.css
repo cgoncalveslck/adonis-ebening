@@ -384,3 +384,11 @@ template {
   border: 1px dashed #ffffff;
   background-color: #ffffff10;
 }
+
+.upload-button {
+  background-color: #5865f2; /* Discord Blue */
+}
+
+.crossed-out {
+  text-decoration: line-through;
+}
