@@ -1,33 +1,24 @@
-/*
-|--------------------------------------------------------------------------
-| Routes
-|--------------------------------------------------------------------------
-|
-| This file is dedicated for defining HTTP routes. A single file is enough
-| for majority of projects, however you can define routes in different
-| files and just make sure to import them inside this file. For example
-|
-| Define routes in following two files
-| ├── start/routes/cart.ts
-| ├── start/routes/customer.ts
-|
-| and then import them inside `start/routes.ts` as follows
-|
-| import './routes/cart'
-| import './routes/customer''
-|
-*/
-
 import Route from '@ioc:Adonis/Core/Route'
 
-Route.get('/', async ({ view }) => {
-  return view.render('welcome')
+Route.get('/', async ({ view, response }) => {
+  try {
+    response.redirect('/user')
+  } catch (error) {
+    return view.render('login')
+  }
+})
+
+Route.get('/logout', async ({ auth, response }) => {
+  await auth.use('web').logout()
+  response.redirect('/')
 })
 
 Route.get('/login', async ({ view }) => {
   return view.render('login')
 })
 
-Route.get('login/discord', 'AuthController.redirectToDiscord')
+Route.post('/upload', 'FilesController.store')
 
+Route.get('user', 'UsersController.show')
+Route.get('login/discord', 'AuthController.redirectToDiscord')
 Route.get('discord/callback', 'AuthController.handleDiscordCallback')

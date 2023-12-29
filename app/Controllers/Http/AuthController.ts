@@ -7,39 +7,36 @@ export default class AuthController {
   }
 
   public async handleDiscordCallback({ ally, auth, response }: HttpContextContract) {
-    try {
-      const discord = await ally.use('discord')
-      // console.log(discord)
+    const discord = await ally.use('discord')
 
-      if (discord.accessDenied()) {
-        return 'Access was denied'
-      }
-
-      if (discord.stateMisMatch()) {
-        return 'Request expired. Retry again'
-      }
-      if (discord.hasError()) {
-        return discord.getError()
-      }
-
-      const discordUser = await discord.user()
-      const user = await User.firstOrCreate(
-        {
-          email: discordUser.email,
-        },
-        {
-          name: discordUser.name,
-          accessToken: discordUser.token.token,
-        }
-      )
-
-      console.log(user, 'user')
-
-      await auth.use('web').login(user)
-
-      return response.redirect('/')
-    } catch (error) {
-      throw error
+    if (discord.accessDenied()) {
+      return 'Access was denied'
     }
+
+    if (discord.stateMisMatch()) {
+      return response.redirect('/logout') // idk
+    }
+
+    if (discord.hasError()) {
+      return discord.getError()
+    }
+
+    const discordUser = await discord.user()
+    const user = await User.updateOrCreate(
+      {
+        name: discordUser.name,
+      },
+      {
+        discord_id: discordUser.id,
+        name: discordUser.name,
+        nick_name: discordUser.original.global_name ?? discordUser.nickName,
+        discord_token: discordUser.token,
+        discord_avatar_url: discordUser.avatarUrl,
+      }
+    )
+
+    await auth.use('web').login(user)
+
+    return response.redirect('/')
   }
 }
