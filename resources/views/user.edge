@@ -1,0 +1,49 @@
+@layout('layouts/main')
+@set('title', 'User Page')
+
+@section('body')
+
+<main>
+  <header class="p-4 text-discord-gray-light bg-discord-darker shadow-lg">
+    <div class="flex items-center justify-between">
+      <div class="flex items-center">
+        <img class="h-12 w-12 rounded-full border-2 border-discord-blue mr-4" src="{{ user.discord_avatar_url }}"
+          alt="{{ user.name }}'s avatar">
+        <div>
+          <h2 class="text-xl font-bold text-discord-gray-light">{{ user.nick_name }}</h2>
+        </div>
+      </div>
+      <button onclick="location.href='/logout'" class="text-white upload-button font-bold py-2 px-4 rounded ">
+        Logout
+      </button>
+    </div>
+  </header>
+
+  <div class="col-span-full flex items-center justify-center h-screen">
+    <div id="drop-zone" ondrop="dropHandler(event)" ondragover="dragOverHandler(event)" class="w-2/5">
+      <label for="cover-photo" class="block text-sm font-medium leading-6 text-gray-300">File upload</label>
+      <div class="file-box  mt-2 flex justify-center rounded-lg border border-dashed border-gray-300/25 px-6 py-10">
+        <div class="text-center flex items-center flex-col">
+          <svg class="mx-auto h-12 w-12 text-gray-400" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path fill-rule="evenodd"
+              d="M1.5 6a2.25 2.25 0 012.25-2.25h16.5A2.25 2.25 0 0122.5 6v12a2.25 2.25 0 01-2.25 2.25H3.75A2.25 2.25 0 011.5 18V6zM3 16.06V18c0 .414.336.75.75.75h16.5A.75.75 0 0021 18v-1.94l-2.69-2.689a1.5 1.5 0 00-2.12 0l-.88.879.97.97a.75.75 0 11-1.06 1.06l-5.16-5.159a1.5 1.5 0 00-2.12 0L3 16.061zm10.125-7.81a1.125 1.125 0 112.25 0 1.125 1.125 0 01-2.25 0z"
+              clip-rule="evenodd" />
+          </svg>
+          <div class="mt-4 flex text-sm leading-6 text-gray-400">
+            <label for="file-upload">
+              <div
+                class="upload-button cursor-pointer mb-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                Choose a file
+              </div>
+              <input id="file-upload" name="file-upload" type="file" class="sr-only">
+            </label>
+            {{-- <p class="crossed-out pl-1">or drag and drop</p> --}}
+          </div>
+          <p class="text-xs leading-5 text-gray-400">MP3 file up to xMB</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+
+@end

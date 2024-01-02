@@ -1,7 +1,8 @@
 import { DateTime } from 'luxon'
 import { BaseModel, column } from '@ioc:Adonis/Lucid/Orm'
+import { attachment, AttachmentContract } from '@ioc:Adonis/Addons/AttachmentLite'
 
-export default class User extends BaseModel {
+export default class File extends BaseModel {
   @column({ isPrimary: true })
   public id: number
 
@@ -14,15 +15,15 @@ export default class User extends BaseModel {
   @column()
   public name: string | null
 
-  @column()
-  public nick_name: string | null
+  @attachment()
+  public data: AttachmentContract
 
   @column()
-  public discord_token: object | null
+  public type: string | null
 
   @column()
-  public discord_id: string | null
+  public size: number | null
 
   @column()
-  public discord_avatar_url: string | null
+  public user_id: number | null
 }

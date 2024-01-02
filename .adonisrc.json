@@ -25,7 +25,8 @@
     "@adonisjs/shield",
     "@adonisjs/ally",
     "@adonisjs/lucid",
-    "@adonisjs/auth"
+    "@adonisjs/auth",
+    "@adonisjs/attachment-lite"
   ],
   "metaFiles": [
     {
