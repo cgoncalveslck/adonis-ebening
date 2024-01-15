@@ -1,29 +1,32 @@
-import { DateTime } from 'luxon'
-import { BaseModel, column } from '@ioc:Adonis/Lucid/Orm'
-import { attachment, AttachmentContract } from '@ioc:Adonis/Addons/AttachmentLite'
+import { DateTime } from "luxon";
+import { BaseModel, column } from "@ioc:Adonis/Lucid/Orm";
+import {
+  attachment,
+  AttachmentContract,
+} from "@ioc:Adonis/Addons/AttachmentLite";
 
 export default class File extends BaseModel {
   @column({ isPrimary: true })
-  public id: number
+  public id: number;
 
   @column.dateTime({ autoCreate: true })
-  public createdAt: DateTime
+  public createdAt: DateTime;
 
   @column.dateTime({ autoCreate: true, autoUpdate: true })
-  public updatedAt: DateTime
+  public updatedAt: DateTime;
 
   @column()
-  public name: string | null
+  public name: string | null;
 
-  @attachment()
-  public data: AttachmentContract
-
-  @column()
-  public type: string | null
+  @attachment({ preComputeUrl: true })
+  public data: AttachmentContract | null;
 
   @column()
-  public size: number | null
+  public type: string | null;
 
   @column()
-  public user_id: number | null
+  public size: number | null;
+
+  @column()
+  public user_id: number | null;
 }
