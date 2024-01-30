@@ -19,9 +19,9 @@ export default class extends BaseSchema {
 
     this.schema.createTable("files", (table) => {
       table.increments("id").primary();
-      table.json("data").notNullable();
+      table.json("data").nullable();
       table.string("name").notNullable();
-      table.string("type", 20).notNullable();
+      table.string("type", 20).nullable();
       table.integer("size").notNullable();
       table
         .integer("user_id")
@@ -29,6 +29,8 @@ export default class extends BaseSchema {
         .references("id")
         .inTable("users")
         .nullable();
+
+      table.string("url").nullable();
       table.timestamp("created_at", { useTz: true }).notNullable();
       table.timestamp("updated_at", { useTz: true }).notNullable();
     });

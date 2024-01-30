@@ -8,6 +8,7 @@
   padding: 0;
 }
 
+/* TODO: Move this elsewhere */
 /*! normalize.css v8.0.1 | MIT License | github.com/necolas/normalize.css */
 
 /* Document
@@ -360,55 +361,9 @@ template {
   display: none;
 }
 
-.bg-discord-light {
-  background-color: #313338;
-}
-
-.bg-discord-dark {
-  background-color: #2b2d31;
-}
-
-.bg-discord-darker {
-  background-color: #1e1f22;
-}
-
-.text-discord-gray-light {
-  color: #dadcdd;
-}
-
-.text-discord-gray-dark {
-  color: #8b959d;
-}
-
-#drop-zone.dragover .file-box {
-  border: 1px dashed #ffffff;
-  background-color: #ffffff10;
-}
-
-.upload-button {
-  background-color: #5865f2; /* Discord Blue */
-}
-
-.crossed-out {
-  text-decoration: line-through;
-}
-
 
 * {
   font-family: sans-serif;
-}
-
-.uploader {
-  border: 1px dashed #666;
-  padding: 40px;
-  cursor: pointer;
-  background-color: #eee;
-  text-align:center;
-}
-
-.uploader.highlight {
-  background-color: #eef;
-  border-color: #00c;
 }
 
 [role="button"] {
@@ -424,9 +379,4 @@ template {
 [role="button"]:hover {
   background-color:#bbb;
   color:#000;
-}
-
-progress {
-  height: 2px;
-  width: 100%;
 }

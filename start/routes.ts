@@ -1,26 +1,18 @@
 import Route from "@ioc:Adonis/Core/Route";
 
-Route.get("/", async ({ view, response }) => {
-  try {
-    response.redirect("/user");
-  } catch (error) {
-    return view.render("login");
-  }
-});
+//Auth
+Route.get("/", "AuthController.tryLogin");
+Route.get("/login", "AuthController.tryLogin");
+Route.get("user", "UsersController.show");
 
 Route.get("/logout", async ({ auth, response }) => {
   await auth.use("web").logout();
   response.redirect("/");
 });
 
-Route.get("/login", async ({ view }) => {
-  return view.render("login");
-});
-
+//Files
 Route.post("/upload", "FilesController.store");
-Route.get("files", "FilesController.show").middleware("auth");
 
-Route.get("user", "UsersController.show");
-
+// Discord OAuth
 Route.get("login/discord", "AuthController.redirectToDiscord");
 Route.get("discord/callback", "AuthController.handleDiscordCallback");

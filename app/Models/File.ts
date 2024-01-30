@@ -9,7 +9,13 @@ export default class File extends BaseModel {
   @column({ isPrimary: true })
   public id: number;
 
-  @column.dateTime({ autoCreate: true })
+  // https://lucid.adonisjs.com/docs/serializing-models
+  @column.dateTime({
+    autoCreate: true,
+    serialize: (value: DateTime) => {
+      return value ? value.toLocaleString(DateTime.DATETIME_SHORT, {}) : value;
+    },
+  })
   public createdAt: DateTime;
 
   @column.dateTime({ autoCreate: true, autoUpdate: true })
@@ -26,6 +32,9 @@ export default class File extends BaseModel {
 
   @column()
   public size: number | null;
+
+  @column()
+  public url: string | null;
 
   @column()
   public user_id: number | null;
