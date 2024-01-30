@@ -5,8 +5,8 @@
  * file.
  */
 
-import Env from '@ioc:Adonis/Core/Env'
-import { AllyConfig } from '@ioc:Adonis/Addons/Ally'
+import Env from "@ioc:Adonis/Core/Env";
+import { AllyConfig } from "@ioc:Adonis/Addons/Ally";
 
 /*
 |--------------------------------------------------------------------------
@@ -24,11 +24,11 @@ const allyConfig: AllyConfig = {
 	|--------------------------------------------------------------------------
 	*/
   discord: {
-    driver: 'discord',
-    clientId: Env.get('DISCORD_CLIENT_ID'),
-    clientSecret: Env.get('DISCORD_CLIENT_SECRET'),
-    callbackUrl: 'http://localhost:3333/discord/callback',
+    driver: "discord",
+    clientId: Env.get("DISCORD_CLIENT_ID"),
+    clientSecret: Env.get("DISCORD_CLIENT_SECRET"),
+    callbackUrl: Env.get("DISCORD_CALLBACK_URI"),
   },
-}
+};
 
-export default allyConfig
+export default allyConfig;
