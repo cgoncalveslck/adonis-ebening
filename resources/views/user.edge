@@ -53,7 +53,8 @@
               <td class="p-2 align-middle">{{prettyBytes(file.size)}}</td>
               <td class="p-2 align-middle">{{file.created_at}}</td>
               <td class="p-2 align-middle">
-                <audio controls class="w-full">
+                {{--  TODO: Implement controls myself, this shit is ugly  --}}
+                <audio preload="metadata" controls class="w-full">
                   <source src="{{file.url}}" type="audio/mpeg" />
                 </audio>
               </td>
@@ -80,6 +81,7 @@
               Upload
             </button>
           </form>
+
         </div>
       </div>
     </div>
