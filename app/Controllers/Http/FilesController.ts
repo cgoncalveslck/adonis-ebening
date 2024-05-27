@@ -69,9 +69,7 @@ const uploadGCS = async ({ relativeTmpPath, name }) => {
     projectId: "ebening",
   });
 
-  const bucketName = "ebening-sounds";
-
-  return await storage.bucket(bucketName).upload(absoluteTmpPath, {
+  return await storage.bucket("ebening-sounds").upload(absoluteTmpPath, {
     destination: name,
   });
 };
