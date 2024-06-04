@@ -1,7 +1,11 @@
 import File from "App/Models/File";
 export default class UsersController {
-  async show({ auth, view }) {
-    await auth.use("web").authenticate();
+  async show({ auth, view, response }) {
+    try {
+      await auth.use("web").authenticate();
+    } catch {
+      return response.redirect("/login");
+    }
     //TODO: move this elsewhere and maybe paginate (?)
     const Allfiles = await File.all();
 

@@ -1,13 +1,12 @@
 @layout('layouts/main')
-@set('title', 'User Page')
 @section('body')
 <div class="flex flex-col h-screen bg-transparent">
-  <header class="py-2 flex items-center justify-between bg-gray-800 px-6 shadow">
+  <header class="flex items-center justify-between px-6 py-2 bg-gray-800 shadow">
     <div class="flex items-center gap-4">
       <div class="flex flex-row items-center gap-10">
         <div class="flex flex-row items-center gap-4">
-          <span class="relative flex shrink-0 overflow-hidden rounded-full h-12 w-12">
-            <span class="flex h-full w-full items-center justify-center rounded-full bg-muted">
+          <span class="relative flex w-12 h-12 overflow-hidden rounded-full shrink-0">
+            <span class="flex items-center justify-center w-full h-full rounded-full bg-muted">
               <img src="{{user.discord_avatar_url}}" alt="Discord avatar">
             </span>
           </span>
@@ -15,33 +14,33 @@
         </div>
         <div class="flex gap-4">
           <button
-            class="inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 h-10 px-4 py-2 bg-white text-black">
+            class="inline-flex items-center justify-center h-10 px-4 py-2 text-sm font-medium text-black transition-colors bg-white rounded-md ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50">
             Sounds
           </button>
         </div>
       </div>
     </div>
     <button hx-get="/logout" hx-swap="none"
-      class="inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 h-10 px-4 py-2 bg-white text-black">
+      class="inline-flex items-center justify-center h-10 px-4 py-2 text-sm font-medium text-black transition-colors bg-white rounded-md ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50">
       Logout
     </button>
   </header>
-  <main class="flex-1 overflow-auto bg-gray-700 text-white">
+  <main class="flex-1 overflow-auto text-white bg-gray-700">
     <div class="container mx-auto">
       <div class="relative w-full overflow-auto">
-        <table class="table-auto w-full text-sm text-left text-gray-500 dark:text-gray-400">
+        <table class="w-full text-sm text-left text-gray-500 table-auto dark:text-gray-400">
           <thead class="text-xs text-gray-500 uppercase">
             <tr class="border-b">
-              <th class="h-12 px-4 text-left align-middle font-medium text-muted-foreground">
+              <th class="h-12 px-4 font-medium text-left align-middle text-muted-foreground">
                 Sound name
               </th>
-              <th class="h-12 px-4 text-left align-middle font-medium text-muted-foreground">
+              <th class="h-12 px-4 font-medium text-left align-middle text-muted-foreground">
                 Size
               </th>
-              <th class="h-12 px-4 text-left align-middle font-medium text-muted-foreground">
+              <th class="h-12 px-4 font-medium text-left align-middle text-muted-foreground">
                 Date Uploaded
               </th>
-              <th class="h-12 px-4 text-left align-middle font-medium text-muted-foreground">
+              <th class="h-12 px-4 font-medium text-left align-middle text-muted-foreground">
                 Preview
               </th>
             </tr>
@@ -53,9 +52,9 @@
               <td class="p-2 align-middle">{{prettyBytes(file.size)}}</td>
               <td class="p-2 align-middle">{{file.created_at}}</td>
               <td class="p-2 align-middle">
-                {{--  TODO: Implement controls myself, this shit is ugly  --}}
+                {{-- TODO: Implement controls myself, this shit is ugly --}}
                 <audio preload="metadata" controls class="w-full">
-                  <source src="{{file.url}}" type="audio/mpeg" />
+                  <source src="{{file?.data?.url}}" type="audio/mpeg" />
                 </audio>
               </td>
             </tr>
@@ -64,20 +63,23 @@
         </table>
       </div>
     </div>
-    <div class="container mx-auto sticky bottom-5 shadow-md bg-transparent text-white">
-      <div class="bg-gray-800 rounded-xl p-2">
+  </main>
+  <div class="absolute left-0 right-0 bottom-5">
+    <div class="container w-full mx-auto text-white bg-transparent shadow-md bottom-5">
+      <div class="p-2 bg-gray-800 rounded-xl">
         <div id="form-wrapper">
-          <form id="form" class="flex items-center gap-4" hx-encoding='multipart/form-data' hx-post='/upload' hx-target="#table-body" hx-swap="afterend">
+          <form id="form" class="flex items-center gap-4" hx-encoding='multipart/form-data' hx-post='/upload'
+            hx-target="#table-body" hx-swap="afterend">
             <label
-              class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 sr-only"
+              class="text-sm font-medium leading-none sr-only peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
               for="file-upload">
               Upload File
             </label>
             <input
-              class="flex h-10 w-full rounded-md border border-input text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 flex-1 bg-gray-700 text-white"
+              class="flex flex-1 w-full h-10 text-sm text-white bg-gray-700 border rounded-md border-input ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
               id="file-upload" accept=".mp3" type="file" name="new-sound" required />
             <button
-              class="py-2 px-5 ml-4 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-md border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
+              class="px-5 py-2 ml-4 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-md focus:outline-none hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
               Upload
             </button>
           </form>
@@ -85,6 +87,6 @@
         </div>
       </div>
     </div>
-  </main>
+  </div>
 </div>
 @end

@@ -7,3 +7,28 @@ services:
       - POSTGRES_PASSWORD=postgres
       - POSTGRES_USER=postgres
       - POSTGRES_DB=postgres
+
+  minio:
+    image: 'bitnami/minio:latest'
+    ports:
+      - '9000:9000'
+      - '9001:9001'
+    environment:
+      - MINIO_ROOT_USER=admin
+      - MINIO_ROOT_PASSWORD=admin123
+      - MINIO_DEFAULT_BUCKETS=default
+    volumes:
+      - 'minio-data:/data'
+    healthcheck:
+      test:
+        - CMD
+        - curl
+        - '-f'
+        - 'http://127.0.0.1:9000/minio/health/live'
+      interval: 5s
+      timeout: 20s
+      retries: 10
+
+volumes:
+  minio-data:
+    driver: local 
