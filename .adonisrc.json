@@ -26,7 +26,8 @@
     "@adonisjs/ally",
     "@adonisjs/lucid",
     "@adonisjs/auth",
-    "@adonisjs/attachment-lite"
+    "@adonisjs/attachment-lite",
+    "@adonisjs/drive-s3"
   ],
   "metaFiles": [
     {
