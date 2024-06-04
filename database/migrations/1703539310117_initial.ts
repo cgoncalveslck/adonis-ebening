@@ -20,7 +20,7 @@ export default class extends BaseSchema {
     this.schema.createTable("files", (table) => {
       table.increments("id").primary();
       table.json("data").nullable();
-      table.string("name").notNullable();
+      table.string("name").unique().notNullable();
       table.string("type", 20).nullable();
       table.integer("size").notNullable();
       table

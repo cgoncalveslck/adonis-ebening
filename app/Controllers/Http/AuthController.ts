@@ -12,13 +12,13 @@ export default class AuthController {
     response,
   }: HttpContextContract) {
     const discord = await ally.use("discord");
-
     if (discord.accessDenied()) {
       return "Access was denied";
     }
 
     if (discord.stateMisMatch()) {
-      return response.redirect("/logout"); // idk
+      // this "fixed" something but I don't remember what
+      return response.redirect("/logout");
     }
 
     if (discord.hasError()) {
@@ -40,7 +40,6 @@ export default class AuthController {
     );
 
     await auth.use("web").login(user);
-
     return response.redirect("/user");
   }
 

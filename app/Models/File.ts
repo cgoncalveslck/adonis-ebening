@@ -31,7 +31,7 @@ export default class File extends BaseModel {
   public type: string | null;
 
   @column()
-  public size: number | null;
+  public size: number | string | null;
 
   @column()
   public url: string | null;
